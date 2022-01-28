@@ -76,7 +76,7 @@ resource "google_cloudfunctions_function" "secrets_test_02" {
     secret     = google_secret_manager_secret.test_secret_02.secret_id
     mount_path = "/etc/secrets"
     versions { // code suggests this can be left empty, but still required
-      version = "latest"
+      version = "21"
       path    = "/test-secret"
     }
   }
