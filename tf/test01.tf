@@ -69,7 +69,7 @@ resource "google_cloudfunctions_function" "secrets_test" {
   secret_environment_variables {
     key     = "MY_SECRET"
     secret  = google_secret_manager_secret.test_secret_01.secret_id // description for arg says 'name of secret', terraform keeps this value as "secret_id"
-    version = "latest"                                              // This value is not made available by the secret_manager_secret_version resource
+    version = "21"                                              // This value is not made available by the secret_manager_secret_version resource
   }
 }
 
