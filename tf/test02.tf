@@ -24,10 +24,10 @@ resource "google_secret_manager_secret_version" "test_secret_version_02a" {
 }
 
 
-# resource "google_secret_manager_secret_version" "test_secret_version_02b" {
-#   secret      = google_secret_manager_secret.test_secret_02.id
-#   secret_data = "This is another version of my secret for test 2."
-# }
+resource "google_secret_manager_secret_version" "test_secret_version_02b" {
+  secret      = google_secret_manager_secret.test_secret_02.id
+  secret_data = "This is another version of my secret for test 2."
+}
 
 
 resource "google_secret_manager_secret_iam_member" "cloud_function_sa_02" {
