@@ -71,7 +71,7 @@ resource "google_cloudfunctions_function" "secrets_test_02" {
   source_archive_bucket = google_storage_bucket.cloud_functions.id
   source_archive_object = google_storage_bucket_object.cloud_function_2_zip.name
   trigger_http          = true
-
+# Remove this secret_volumes block on second tf apply
   secret_volumes {
     secret     = google_secret_manager_secret.test_secret_02.secret_id
     mount_path = "/etc/secrets"
@@ -96,5 +96,3 @@ resource "google_cloudfunctions_function_iam_member" "invoker_02" {
 output "functions_secrets_test_2_URL" {
   value = google_cloudfunctions_function.secrets_test_02.https_trigger_url
 }
-
-
