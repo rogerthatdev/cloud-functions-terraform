@@ -20,7 +20,7 @@ resource "google_secret_manager_secret" "test_secret_02" {
 
 resource "google_secret_manager_secret_version" "test_secret_version_02a" {
   secret      = google_secret_manager_secret.test_secret_02.id
-  secret_data = "This is my secret for test 2."
+  secret_data = "This is my secret for test 2. I've updated the value"
 }
 
 
