@@ -51,14 +51,19 @@ data "archive_file" "cloud_function_1_zip" {
     filename = "index.js"
   }
 }
+// Random string used to name bucket object to trigger function to redeploy
+resource "random_id" "random" {
+  keepers = {
+    first = "${timestamp()}"
+  }     
+  byte_length = 8
+}
 
 resource "google_storage_bucket_object" "cloud_function_1_zip" {
-  name   = "cloud-function-1.zip"
+  name   = "cloud-function-${random_id.random.id}.zip"
   bucket = google_storage_bucket.cloud_functions.id
   source = data.archive_file.cloud_function_1_zip.output_path
 }
-
-
 
 resource "google_cloudfunctions_function" "secrets_test" {
   name                  = "secrets-test-01"
@@ -68,6 +73,7 @@ resource "google_cloudfunctions_function" "secrets_test" {
   source_archive_bucket = google_storage_bucket.cloud_functions.id
   source_archive_object = google_storage_bucket_object.cloud_function_1_zip.name
   trigger_http          = true
+  # Remove this secret_environment_variables block on second tf apply
   secret_environment_variables {
     key     = "MY_SECRET"
     secret  = google_secret_manager_secret.test_secret_01.secret_id // description for arg says 'name of secret', terraform keeps this value as "secret_id"
